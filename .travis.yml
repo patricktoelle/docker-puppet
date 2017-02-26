@@ -1,0 +1,19 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t patricktoelle/puppet-check puppet-check
+  - docker build -t patricktoelle/yamllint yamllint
+
+script:
+  - docker images patricktoelle/puppet-check
+  - docker images patricktoelle/yamllint
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push patricktoelle/puppet-check;
+    docker push patricktoelle/yamllint;
+    fi
