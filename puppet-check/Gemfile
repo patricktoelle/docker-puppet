@@ -19,3 +19,4 @@ gem 'rspec'
 gem 'rspec-puppet-facts', require: false
 gem 'beaker'
 gem 'nokogiri'
+gem 'r10k'
